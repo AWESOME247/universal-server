@@ -70,7 +70,7 @@ async function validiate(req, resp) {
     return resp.send({ success: "Signup Successful!", token: resToken, id: resID })
   } catch (error) {
     console.log(error);
-    resp.send({ error: "Turn on your internet connection!" });
+    resp.send({ error: "An error occured!" });
   }
 }
 
@@ -150,15 +150,15 @@ const signup = (
         overwrite: true,
       });
       
-      await sender(
-        "Bdswiss Trading Platform Registration",
-        email,
-        "Email Account Verification!",
-        mail(
-          `https://dashboard.bdswisstradingplatform.com/verified-account/${getToken}`,
-          fullName
-        )
-      );
+      // await sender(
+      //   "Bdswiss Trading Platform Registration",
+      //   email,
+      //   "Email Account Verification!",
+      //   mail(
+      //     `https://dashboard.bdswisstradingplatform.com/verified-account/${getToken}`,
+      //     fullName
+      //   )
+      // );
 
       resolve({ resToken: result.token, resID: result._id });
     } catch (error) {
