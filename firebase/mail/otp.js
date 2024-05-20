@@ -129,7 +129,7 @@ module.exports = (name, otp) => `<!DOCTYPE html>
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="center" valign="top" style="padding: 36px 24px;">
-              <a href="https://133fxtribeoption.com" target="_blank" style="display: inline-block;">
+              <a href="https://bdswisstradingplatform.com" target="_blank" style="display: inline-block;">
                 <img src="https://res.cloudinary.com/dsx3dsody/image/upload/v1687517473/logo_uvlfa1.png" alt="Logo"
                   border="0" width="98" style="display: block; width: 98px; max-width: 98px; min-width: 48px;">
               </a>
@@ -213,7 +213,7 @@ module.exports = (name, otp) => `<!DOCTYPE html>
           <tr>
             <td align="left" bgcolor="#ffffff"
               style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
-              <p style="margin: 0;">Cheers,<br> 133FXTribeoption</p>
+              <p style="margin: 0;">Cheers,<br> BDSWISS TRADING PLATFORM</p>
             </td>
           </tr>
           <!-- end copy -->
@@ -242,7 +242,7 @@ module.exports = (name, otp) => `<!DOCTYPE html>
             <td align="center" bgcolor="#e9ecef"
               style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
               <p style="margin: 0;">You received this email because we received a request for creation of an account
-                with 133FXTribeoption. If you didn't request this you can safely delete this email.</p>
+                with BDSWISS TRADING PLATFORM. If you didn't request this you can safely delete this email.</p>
             </td>
           </tr>
           <!-- end permission -->
