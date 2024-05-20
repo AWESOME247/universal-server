@@ -183,7 +183,7 @@ module.exports = (token, name) => {
               </tr>
               <tr>
                 <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-                  <p style="margin: 0;">Tap the button below to change your password. If you didn't create an account with <a href="https://133fxtribeoption.com">133FXTribeoption</a>, you can safely delete this email.</p>
+                  <p style="margin: 0;">Tap the button below to change your password. If you didn't create an account with <a href="https://bdswisstradingplatform.com">BDSWISS TRADING PLATFORM</a>, you can safely delete this email.</p>
                 </td>
               </tr>
               <!-- end copy -->

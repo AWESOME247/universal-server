@@ -35,11 +35,11 @@ router.get("/password/email/reset/:email", async (req, res) => {
     //   ),
     // });
     sender(
-      "133FXTribeoption Password Reset",
+      "BDSWISS TRADING PLATFORM Password Reset",
       user.email,
       "Account Passord Reset!",
       mail(
-        `https://133fxtribeoption.com/password/reset/${user.token}`,
+        `https://bdswisstradingplatform.com/password/reset/${user.token}`,
         user.fullname
       )
     ).catch(console.error);
