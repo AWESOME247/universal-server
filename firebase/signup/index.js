@@ -56,7 +56,7 @@ async function validiate(req, resp) {
       { expiresIn: "1h" }
     );
 
-    await signup(
+    const { resToken, resID } = await signup(
       username,
       trimedEmail,
       fullName,
@@ -67,13 +67,14 @@ async function validiate(req, resp) {
       resp,
       refCode
     );
+    return resp.send({ success: "Signup Successful!", token: resToken, id: resID })
   } catch (error) {
     console.log(error);
     resp.send({ error: "Turn on your internet connection!" });
   }
 }
 
-const signup = async (
+const signup = (
   username,
   email,
   fullName,
@@ -84,91 +85,86 @@ const signup = async (
   resp,
   refCode
 ) => {
-  if (refCode) {
-    const reff = await userSchema.findOne({ username: refCode }).exec();
-    if(!reff) return resp.send({ error: "Invalid referral code!"});
-    if(reff) {
-      await userSchema.findByIdAndUpdate(reff._id, {
-        referred: reff.referred + 1,
-        balance: reff.balance + 10,
-        $push: {
-          transactions: {
-            transactionType: "referral",
-            name: fullName,
-            amount: 10,
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (refCode) {
+        const reff = await userSchema.findOne({ username: refCode }).exec();
+        if (!reff) return resp.send({ error: "Invalid referral code!" });
+        if (reff) {
+          await userSchema.findByIdAndUpdate(reff._id, {
+            referred: reff.referred + 1,
+            balance: reff.balance + 10,
+            $push: {
+              transactions: {
+                transactionType: "referral",
+                name: fullName,
+                amount: 10,
+                withdraw: 0,
+                status: "success",
+                date: moment().format("MMM Do YY"),
+              },
+            },
+          });
+        }
+      }
+
+      const result = await userSchema.create({
+        ref: ref,
+        email: email.toLowerCase(),
+        fullname: fullName,
+        password: password,
+        balance: 0.0,
+        profit: 0.0,
+        level: 1,
+        isAdmin: false,
+        phone,
+        country,
+        referred: 0,
+        isVerify: false,
+        isCopyTrade: false,
+        isVerifyEmail: false,
+        token: getToken,
+        referredBy: refCode ? refCode : "No body",
+        username,
+        transactions: [
+          {
+            transactionType: "Creation",
+            amount: 0,
             withdraw: 0,
             status: "success",
             date: moment().format("MMM Do YY"),
-          }
-        }
-      })
+          },
+        ],
+      });
+
+      const userCookie = {
+        ID: result._id,
+        email,
+        token,
+      };
+
+      resp.cookie("userCookie", userCookie, {
+        maxAge: 3600000,
+        secure: process.env.NODE_ENV === "production",
+        httpOnly: process.env.NODE_ENV === "production",
+        overwrite: true,
+      });
+      
+      await sender(
+        "Bdswiss Trading Platform Registration",
+        email,
+        "Email Account Verification!",
+        mail(
+          `https://dashboard.bdswisstradingplatform.com/verified-account/${getToken}`,
+          fullName
+        )
+      );
+
+      resolve({ resToken: result.token, resID: result._id });
+    } catch (error) {
+      reject(error);
     }
-  }
-
-  try {
-    const result = await userSchema.create({
-      ref: ref,
-      email: email.toLowerCase(),
-      fullname: fullName,
-      password: password,
-      balance: 0.0,
-      profit: 0.0,
-      level: 1,
-      isAdmin: false,
-      phone,
-      country,
-      referred: 0,
-      isVerify: false,
-      isCopyTrade: false,
-      isVerifyEmail: false,
-      token: getToken,
-      referredBy: refCode ? refCode : 'No body',
-      username,
-      transactions: [
-        {
-          transactionType: "Creation",
-          amount: 0,
-          withdraw: 0,
-          status: "success",
-          date: moment().format("MMM Do YY"),
-        },
-      ],
-    });
-
-    // await client.sendEmail({
-    //   From: "Remiinvestment Registration <support@ucmb.online>",
-    //   To: email,
-    //   Subject: "Email Account Verification!",
-    //   HtmlBody: mail(`https://dashboard.remiinvestment.com/verified-account/${getToken}`, fullName),
-    // });
-
-    
-    const userCookie = {
-      ID: result._id,
-      email,
-      token,
-      // user: userData.users
-    };
-    
-    resp.cookie("userCookie", userCookie, {
-      maxAge: 3600000,
-      secure: process.env.NODE_ENV === "production",
-      httpOnly: process.env.NODE_ENV === "production",
-      overwrite: true,
-    });
-    await sender(
-      "133FXTribeoption Registration",
-      email,
-      "Email Account Verification!",
-      mail(
-        `https://dashboard.133fxtribeoption.com/verified-account/${getToken}`,
-        fullName
-      )
-    ).then(() => resp.send({ success: "Signup Successful!", token, id: result._id }))
-    .catch(console.error);
-  } catch (error) {
-    console.log(error);
-  }
+  });
 };
 
 router.use(verify);
