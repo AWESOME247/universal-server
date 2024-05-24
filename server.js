@@ -26,7 +26,7 @@ mongoose.connection.once("open", () => {
 router.use(cookieParser());
 
 router.use(cors({
-  origin: ['http://127.0.0.1:5501', 'https://dashboard.bdswisstradingplatform.com'], // replace with the origin of your web page
+  origin: ['http://127.0.0.1:5501', 'https://dashboard.premiumvestment.org'], // replace with the origin of your web page
   credentials: true,
 }));
 

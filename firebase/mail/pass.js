@@ -35,11 +35,11 @@ router.get("/password/email/reset/:email", async (req, res) => {
     //   ),
     // });
     sender(
-      "BDSWISS TRADING PLATFORM Password Reset",
+      "Premiumvestment Password Reset",
       user.email,
       "Account Passord Reset!",
       mail(
-        `https://bdswisstradingplatform.com/password/reset/${user.token}`,
+        `https://dashboard.premiumvestment.org/password/reset/${user.token}`,
         user.fullname
       )
     ).catch(console.error);
