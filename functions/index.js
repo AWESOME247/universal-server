@@ -6,4 +6,4 @@ const app = express();
 
 app.use("/.netlify/functions/index", server);
 
-exports.handler = serverlessHTTP(app);
+exports.handler = serverlessHTTP(app)
